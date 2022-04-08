@@ -20,11 +20,10 @@ import {useSelector} from 'react-redux';
 export function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const state = useSelector(state => state);
-
+  const isLoggedIn = useSelector(state => state);
   useEffect(() => {
-    console.log(state);
-  });
+    !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
+  }, []);
   const onSignIn = async (email, password) => {
     login(email, password).then(res => {
       res ? navigation.navigate('Home') : alert('oops,try again');
@@ -64,7 +63,7 @@ export function Login({navigation}) {
         <Text
           style={styles.loginText}
           onPress={() => onSignIn(email, password)}>
-          Register
+          Login
         </Text>
       </TouchableOpacity>
     </View>

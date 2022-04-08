@@ -11,15 +11,21 @@ export const register = async (email, password) => {
   const userEmail = await AsyncStorage.getItem('email');
   const userPassword = await AsyncStorage.getItem('password');
   if (
-    (!userEmail === email && !userPassword === password) ||
-    userEmail === email
+    !userEmail === email ||
+    userPassword === password ||
+    (!email && !password)
   ) {
+    store.dispatch({type: REGISTER_FAIL, isLoggedIn: false});
     return false;
   } else {
     try {
       await AsyncStorage.setItem('email', email);
       await AsyncStorage.setItem('password', password);
-      store.dispatch({type: REGISTER_SUCCESS, isLoggedIn: true});
+      store.dispatch({
+        type: REGISTER_SUCCESS,
+
+        payload: {isLoggedIn: true, user: userEmail},
+      });
       return true;
     } catch (e) {
       store.dispatch({type: REGISTER_FAIL, isLoggedIn: false});

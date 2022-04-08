@@ -18,14 +18,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {register} from '../../../redux/actions/auth';
+import {useSelector} from 'react-redux';
 export function Register({navigation}) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isLoggedIn = useSelector(state => state);
+  useEffect(() => {
+    !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
+  }, []);
   function userHasAccount() {
     AsyncStorage.clear().then(navigation.navigate('Login'));
   }
@@ -37,6 +42,7 @@ export function Register({navigation}) {
 
   return (
     <View style={styles.container}>
+      {console.log(isLoggedIn)}
       <View>
         <Text style={styles.loginTitle}>Register</Text>
       </View>
