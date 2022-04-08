@@ -18,8 +18,8 @@ import {login} from '../../../redux/actions/auth';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 export function Login({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test');
+  const [password, setPassword] = useState('test');
   const isLoggedIn = useSelector(state => state);
   useEffect(() => {
     !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
@@ -59,13 +59,10 @@ export function Login({navigation}) {
         onPress={() => navigation.navigate('Register')}
       />
 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text
-          style={styles.loginText}
-          onPress={() => onSignIn(email, password)}>
-          Login
-        </Text>
-      </TouchableOpacity>
+      <Button
+        title="Login"
+        style={styles.loginText}
+        onPress={() => onSignIn(email, password)}></Button>
     </View>
   );
 }

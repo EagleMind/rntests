@@ -25,8 +25,8 @@ import {register} from '../../../redux/actions/auth';
 import {useSelector} from 'react-redux';
 export function Register({navigation}) {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test');
+  const [password, setPassword] = useState('test');
   const isLoggedIn = useSelector(state => state);
   useEffect(() => {
     !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
@@ -35,7 +35,7 @@ export function Register({navigation}) {
     AsyncStorage.clear().then(navigation.navigate('Login'));
   }
   async function onSignUp(email, password) {
-    await register(email, password).then(res => {
+    register(email, password).then(res => {
       res ? navigation.navigate('Login') : alert('Oops, try again');
     });
   }
