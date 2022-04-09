@@ -24,7 +24,7 @@ export function Profile() {
   const profile = useSelector(state => state.profile).profile;
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    profileDetails().then(res => {
+    profileDetails().then(() => {
       setLoading(false);
     });
   }, []);
