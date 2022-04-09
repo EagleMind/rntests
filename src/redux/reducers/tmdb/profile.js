@@ -1,4 +1,4 @@
-import * as types from '../types/profile';
+import * as types from '../../types/tmdb/profile';
 let profile = [];
 let initialState = profile;
 export const profileDetails = (state = initialState, action) => {
