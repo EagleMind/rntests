@@ -19,12 +19,10 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {register} from '../../../redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 export function Register({navigation}) {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState('test');
   const [password, setPassword] = useState('test');
   const isLoggedIn = useSelector(state => state);
