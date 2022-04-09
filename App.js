@@ -13,7 +13,7 @@ import Register from './src/components/Auth/register/index';
 import Login from './src/components/Auth/login/index';
 import Profile from './src/components/Profile/index';
 import Home from './src/Pages/Home/';
-import {logout} from './src/redux/actions/auth';
+import {logout} from './src/redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 export function App() {
   const Stack = createNativeStackNavigator();

@@ -21,7 +21,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {register} from '../../../redux/actions/auth';
+import {register} from '../../../redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 export function Register({navigation}) {
   const dispatch = useDispatch();

@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {login} from '../../../redux/actions/auth';
+import {login} from '../../../redux/actions/tmdb/auth';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 export function Login({navigation}) {

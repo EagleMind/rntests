@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import store from '../../../store';
+import store from '../../../../store';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from '../types/auth';
+} from '../../types/auth';
 export const register = async (email, password) => {
   const userEmail = await AsyncStorage.getItem('email');
   const userPassword = await AsyncStorage.getItem('password');
