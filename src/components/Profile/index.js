@@ -12,6 +12,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  ActivityIndicator,
   StatusBar,
 } from 'react-native';
 import store from '../../../store';
@@ -21,18 +22,23 @@ import {profileDetails} from '../../redux/actions/profile';
 import Card from '../card';
 export function Profile() {
   const profile = useSelector(state => state.profile).profile;
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    profileDetails();
+    profileDetails().then(res => {
+      setLoading(false);
+    });
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {console.log('profile', profile.username)}
-      <View style={styles.box}>
-        <Text style={styles.text}>TMDB Username : {profile.username}</Text>
-        <Text style={styles.text}>TMDB Id : {profile.id}</Text>
-      </View>
+      {loading ? (
+        <ActivityIndicator size="small" color="#0000ff" />
+      ) : (
+        <View style={styles.box}>
+          <Text style={styles.text}>TMDB Username : {profile.username}</Text>
+          <Text style={styles.text}>TMDB Id : {profile.id}</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
