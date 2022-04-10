@@ -67,14 +67,13 @@ export function Card(data) {
                     }}></Image>
                 </View>
                 <View style={styles.details}>
-                  <View style={styles.title}>
-                    <Text numberOfLines={2} style={{fontWeight: 'bold'}}>
+                  <View>
+                    <Text numberOfLines={2} style={styles.title}>
                       {movie.original_title}
                     </Text>
                   </View>
-                  <Text>Release Date: {movie.release_date}</Text>
+                  <Text style={styles.releaseDate}>{movie.release_date}</Text>
                   <Text style={styles.overview}>
-                    overview:{' '}
                     {movie.overview.length > 80
                       ? movie.overview.substring(0, 80) + '...'
                       : movie.overview}
@@ -192,13 +191,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 5,
-    marginLeft: 65,
+    marginLeft: 60,
   },
   title: {
     textAlign: 'left',
-    fontWeight: '400',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
-
+  releaseDate: {
+    color: '#C4C4C4',
+  },
   imageBox: {
     flex: 0.2,
     width: '100%',
@@ -209,9 +211,6 @@ const styles = StyleSheet.create({
   },
   detailsButton: {
     width: 100,
-  },
-  button: {
-    marginTop: 5,
   },
 
   overview: {
@@ -228,7 +227,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   voteContainer: {
-    marginTop: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
