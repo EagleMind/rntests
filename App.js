@@ -15,7 +15,13 @@ import Profile from './src/components/Profile/index';
 import Home from './src/Pages/Home/';
 import {logout} from './src/redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
+import {LogBox} from 'react-native';
+
 export function App() {
+  // this is the last version of RN gesture handler (2.3.2) so i'm not sure why i'm getting this error
+  LogBox.ignoreLogs([
+    "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  ]);
   const isLoggedIn = useSelector(state => state)?.auth?.user?.isLoggedIn;
   const Drawer = createDrawerNavigator();
   return (
