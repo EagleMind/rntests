@@ -73,10 +73,10 @@ export function Card(data) {
                     </Text>
                   </View>
                   <Text>Release Date: {movie.release_date}</Text>
-                  <Text>
+                  <Text style={styles.overview}>
                     overview:{' '}
-                    {movie.overview.length > 100
-                      ? movie.overview.substring(0, 100) + '...'
+                    {movie.overview.length > 80
+                      ? movie.overview.substring(0, 80) + '...'
                       : movie.overview}
                   </Text>
                   <View style={styles.voteContainer}>
@@ -91,8 +91,9 @@ export function Card(data) {
                       {movie.vote_count}
                     </Text>
                   </View>
-                  <View style={styles.detailsButton}></View>
+                  <View style={{width: 100}}></View>
                   <Button
+                    style={{width: 100}}
                     title="Show Details"
                     onPress={() => showDetails(movie.id)}></Button>
                 </View>
@@ -171,6 +172,7 @@ export function Card(data) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F7F7F7',
+    flexDirection: 'row',
   },
   itemContainer: {
     shadowColor: '#000',
@@ -178,23 +180,26 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
+    width: 300,
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
     elevation: 1,
     backgroundColor: '#FFFFFF',
     margin: 10,
+    width: 350,
   },
   details: {
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 5,
+    marginLeft: 65,
   },
   title: {
     textAlign: 'left',
     fontWeight: '400',
   },
   imageBox: {
-    flex: 0.4,
+    flex: 0.2,
     width: '100%',
   },
   image: {
@@ -202,6 +207,9 @@ const styles = StyleSheet.create({
     height: 200,
   },
   detailsButton: {
+    width: 100,
+  },
+  button: {
     marginTop: 5,
   },
 
@@ -209,15 +217,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Bold',
     fontWeight: '600',
     fontStyle: 'normal',
-    fontSize: 16,
-    marginLeft: 10,
+    fontSize: 14,
   },
   vote: {
     flexDirection: 'row',
     marginLeft: 10,
     padding: 3,
-    color: 'white',
-    backgroundColor: '#60a6fb',
+    color: 'grey',
     justifyContent: 'space-between',
   },
   voteContainer: {
@@ -245,11 +251,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',

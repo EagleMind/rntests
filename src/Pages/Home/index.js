@@ -26,13 +26,15 @@ export function Home() {
     });
   }, []);
   return (
-    <View style={styles.itemContainer}>
-      {loading ? (
-        <ActivityIndicator size="small" color="#0000ff" />
-      ) : (
-        <Card data={watchingNowState.watchingNow}></Card>
-      )}
-    </View>
+    <ScrollView horizontal={true}>
+      <View style={styles.itemContainer}>
+        {loading ? (
+          <ActivityIndicator size="small" color="#0000ff" />
+        ) : (
+          <Card data={watchingNowState.watchingNow}></Card>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
     backgroundColor: '#fff',
-
+    flexDirection: 'row',
     color: 'white',
   },
 });
