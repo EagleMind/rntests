@@ -17,13 +17,11 @@ import {
 import {login} from '../../../redux/actions/tmdb/auth';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import {DrawerActions} from '@react-navigation/native';
 export function Login({navigation}) {
   const [email, setEmail] = useState('test');
   const [password, setPassword] = useState('test');
-  const isLoggedIn = useSelector(state => state);
-  useEffect(() => {
-    !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
-  }, []);
+
   const onSignIn = async (email, password) => {
     login(email, password).then(res => {
       res ? navigation.navigate('Home') : alert('oops,try again');
