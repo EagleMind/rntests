@@ -7,6 +7,8 @@ import App from './App';
 import store from './store';
 import {Provider} from 'react-redux';
 import {name as appName} from './app.json';
+import 'react-native-gesture-handler';
+
 const RNRedux = () => (
   <Provider store={store}>
     <App />
