@@ -9,22 +9,19 @@
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  TextInput,
   Text,
   Button,
-  useColorScheme,
   ActivityIndicator,
   View,
   Image,
   Alert,
   Modal,
-  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
 import {WebView} from 'react-native-webview';
+import {config} from '../../config';
 export function Card(data) {
   const [modalVisible, setModalVisible] = useState(false);
   const [movieDetails, setMovieDetails] = useState({});
@@ -45,7 +42,7 @@ export function Card(data) {
     // to get the Teaser's data
     await axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=919d4d874d091ca3dd7efc2a528f309e&session_id=d3d72247eb3d2b0614a97820575259cda1f243cf`,
+        `${config.TMDB_URL}/movie/${id}/videos?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
       )
       .then(teaser => {
         setTeaser(teaser.data.results);
@@ -63,7 +60,7 @@ export function Card(data) {
                   <Image
                     style={styles.image}
                     source={{
-                      uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`,
+                      uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`,
                     }}></Image>
                 </View>
                 <View style={styles.details}>
@@ -106,7 +103,6 @@ export function Card(data) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>

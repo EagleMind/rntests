@@ -30,7 +30,7 @@ export function Home() {
     <ScrollView>
       <View style={styles.itemContainer}>
         {loading ? (
-          <ActivityIndicator size="small" color="#0000ff" />
+          <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <View>
             <Text style={styles.caregoryTitle}>Playing Now</Text>
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
     backgroundColor: '#F7F7F7',
+    justifyContent: 'center',
     flexDirection: 'row',
     color: 'white',
   },

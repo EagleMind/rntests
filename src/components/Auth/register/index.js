@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 
 import React, {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {register} from '../../../redux/actions/tmdb/auth';
 import {DrawerActions} from '@react-navigation/native';
 export function Register({navigation}) {
