@@ -22,12 +22,12 @@ import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {register} from '../../../redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
+import {DrawerActions} from '@react-navigation/native';
 export function Register({navigation}) {
   const [email, setEmail] = useState('test');
   const [password, setPassword] = useState('test');
-  const isLoggedIn = useSelector(state => state);
   useEffect(() => {
-    !isLoggedIn ? navigation.navigate('Register') : isLoggedIn;
+    navigation.dispatch(DrawerActions.closeDrawer());
   }, []);
   function userHasAccount() {
     AsyncStorage.clear().then(navigation.navigate('Login'));
@@ -40,7 +40,6 @@ export function Register({navigation}) {
 
   return (
     <View style={styles.container}>
-      {console.log(isLoggedIn)}
       <View>
         <Text style={styles.loginTitle}>Register</Text>
       </View>
