@@ -11,17 +11,20 @@ import {
   TextInput,
   Text,
   Button,
-  TouchableOpacity,
   View,
+  ImageBackground,
 } from 'react-native';
 import {login} from '../../../redux/actions/tmdb/auth';
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
 import {DrawerActions} from '@react-navigation/native';
+
 export function Login({navigation}) {
   const [email, setEmail] = useState('test');
   const [password, setPassword] = useState('test');
 
+  useEffect(() => {
+    navigation.dispatch(DrawerActions.closeDrawer());
+  }, []);
   const onSignIn = async (email, password) => {
     login(email, password).then(res => {
       res ? navigation.navigate('Home') : alert('oops,try again');
@@ -30,37 +33,47 @@ export function Login({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.loginTitle}>Login</Text>
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Enter Email"
-          placeholderTextColor="white"
-          onChangeText={email => setEmail(email)}
-        />
-      </View>
+      <ImageBackground
+        source={require('../../../assets/bg.jpg')}
+        style={styles.background}>
+        <View style={styles.loginContainer}>
+          <View>
+            <Text style={styles.loginTitle}>LOGIN</Text>
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Enter Email"
+              placeholderTextColor="white"
+              onChangeText={email => setEmail(email)}
+            />
+          </View>
 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Enter password"
-          placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={password => setPassword(password)}
-        />
-      </View>
-      <Text>Not a member yet?</Text>
-      <Button
-        title="Register"
-        onPress={() => navigation.navigate('Register')}
-      />
-
-      <Button
-        title="Login"
-        style={styles.loginText}
-        onPress={() => onSignIn(email, password)}></Button>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Enter password"
+              placeholderTextColor="white"
+              secureTextEntry={true}
+              onChangeText={password => setPassword(password)}
+            />
+          </View>
+          <View style={styles.loginBtn}>
+            <Text>No account yet?</Text>
+            <Button
+              title="REGISTER"
+              color={'black'}
+              onPress={() => navigation.navigate('Register')}
+            />
+          </View>
+          <View style={styles.mainButton}>
+            <Button
+              title="LOGIN"
+              color={'black'}
+              onPress={() => onSignIn(email, password)}></Button>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -73,41 +86,53 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
   },
-
+  background: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  loginContainer: {
+    flex: 0.7,
+    justifyContent: 'center',
+    margin: 50,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
   image: {
     marginBottom: 40,
   },
 
   inputView: {
-    backgroundColor: '#3377FF',
+    backgroundColor: 'black',
     borderRadius: 30,
-    width: '70%',
+    width: '90%',
     height: 45,
-    marginBottom: 20,
+    marginVertical: 10,
     color: 'white',
     alignItems: 'center',
   },
 
   TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
     color: 'white',
   },
 
   loginBtn: {
-    width: '80%',
-    borderRadius: 25,
-    height: 50,
+    marginVertical: 10,
+    width: 200,
+    borderColor: 'black',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 40,
-    backgroundColor: '#3377CF',
+    justifyContent: 'space-between',
+  },
+  mainButton: {
+    width: '80%',
   },
   loginTitle: {
-    color: 'grey',
-    fontSize: 20,
+    color: 'black',
+    fontSize: 25,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
     marginBottom: 40,
   },
   loginText: {

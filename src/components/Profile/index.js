@@ -19,13 +19,14 @@ import store from '../../../store';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {profileDetails} from '../../redux/actions/tmdb/profile';
-import Card from '../card';
-export function Profile() {
+import {DrawerActions} from '@react-navigation/native';
+export function Profile({navigation}) {
   const profile = useSelector(state => state.profile).profile;
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     profileDetails().then(() => {
       setLoading(false);
+      navigation.dispatch(DrawerActions.closeDrawer());
     });
   }, []);
 
