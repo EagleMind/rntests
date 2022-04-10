@@ -12,3 +12,14 @@ export const watchingNowFeature = (state = initialState, action) => {
       return state;
   }
 };
+export const upComing = (state = initialState, action) => {
+  switch (action.type) {
+    case types.UP_COMING:
+      return {
+        upcoming: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};

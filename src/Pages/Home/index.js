@@ -18,6 +18,7 @@ import {watchingNow} from '../../redux/actions/tmdb/features';
 
 export function Home() {
   const watchingNowState = useSelector(state => state).watchingNowFeature;
+  const upComing = useSelector(state => state).upComing;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +36,8 @@ export function Home() {
             <Text style={styles.caregoryTitle}>Playing Now</Text>
 
             <Card data={watchingNowState.watchingNow}></Card>
+            <Text style={styles.caregoryTitle}>Upcoming Movies</Text>
+            <Card data={upComing.upcoming}></Card>
           </View>
         )}
       </View>
