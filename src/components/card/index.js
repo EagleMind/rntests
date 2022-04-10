@@ -15,77 +15,120 @@ import {
   Text,
   Button,
   useColorScheme,
-  TouchableOpacity,
+  ActivityIndicator,
   View,
+  Image,
 } from 'react-native';
 import React from 'react';
 
-export function Card(userData) {
+export function Card(data) {
   return (
-    <View style={styles.itemContainer}>
-      <View style={{width: '70%'}}>
-        {console.log('userData.username', userData.userData.username)}
-        <Text numberOfLines={2} style={styles.description}>
-          {userData.userData.username}
-        </Text>
-      </View>
-
-      <View style={styles.productTotal}>
-        <Text numberOfLines={1} style={styles.productPrice}>
-          {userData.userData.id}
-        </Text>
-      </View>
-    </View>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        {data.data.map(movie => {
+          return (
+            <View style={styles.itemContainer} key={movie.id}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={styles.imageBox}>
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`,
+                    }}></Image>
+                </View>
+                <View style={styles.details}>
+                  <View style={styles.title}>
+                    <Text numberOfLines={2} style={{fontWeight: 'bold'}}>
+                      {movie.original_title}
+                    </Text>
+                  </View>
+                  <Text>Release Date: {movie.release_date}</Text>
+                  <Text>
+                    overview:{' '}
+                    {movie.overview.length > 100
+                      ? movie.overview.substring(0, 100) + '...'
+                      : movie.overview}
+                  </Text>
+                  <View style={styles.voteContainer}>
+                    <Text numberOfLines={1}>Vote average :</Text>
+                    <Text numberOfLines={1} style={styles.vote}>
+                      {movie.vote_average}/10
+                    </Text>
+                  </View>
+                  <View style={styles.voteContainer}>
+                    <Text numberOfLines={1}>Vote count :</Text>
+                    <Text numberOfLines={1} style={styles.vote}>
+                      {movie.vote_count}
+                    </Text>
+                  </View>
+                  <View style={styles.detailsButton}></View>
+                  <Button title="Show Details"></Button>
+                </View>
+              </View>
+            </View>
+          );
+        })}
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
+    backgroundColor: '#F7F7F7',
   },
-
+  itemContainer: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+    backgroundColor: '#FFFFFF',
+    margin: 10,
+  },
+  details: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingHorizontal: 5,
+  },
+  title: {
+    textAlign: 'left',
+    fontWeight: '400',
+  },
+  imageBox: {
+    flex: 0.4,
+    width: '100%',
+  },
   image: {
-    marginBottom: 40,
+    width: 100,
+    height: 200,
+  },
+  detailsButton: {
+    marginTop: 5,
   },
 
-  inputView: {
-    backgroundColor: '#3377FF',
-    borderRadius: 30,
-    width: '70%',
-    height: 45,
-    marginBottom: 20,
+  overview: {
+    fontFamily: 'Cairo-Bold',
+    fontWeight: '600',
+    fontStyle: 'normal',
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  vote: {
+    flexDirection: 'row',
+    marginLeft: 10,
+    padding: 3,
     color: 'white',
+    backgroundColor: '#60a6fb',
+    justifyContent: 'space-between',
+  },
+  voteContainer: {
+    marginTop: 5,
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-    color: 'white',
-  },
-
-  loginBtn: {
-    width: '80%',
-    borderRadius: 25,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 40,
-    backgroundColor: '#3377CF',
-  },
-  loginTitle: {
-    color: 'grey',
-    fontSize: 20,
-    marginBottom: 40,
-  },
-  loginText: {
-    color: 'white',
   },
 });
 export default Card;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,14 +9,39 @@ import {
   Button,
   useColorScheme,
   TouchableOpacity,
+  ActivityIndicator,
   View,
 } from 'react-native';
+import Card from '../../components/card';
 import {useSelector} from 'react-redux';
-export default function Home() {
-  const counter = useSelector(state => state);
+import {watchingNow} from '../../redux/actions/tmdb/features';
+
+export function Home() {
+  const watchingNowState = useSelector(state => state).watchingNowFeature;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    watchingNow().then(() => {
+      setLoading(false);
+    });
+  }, []);
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>{console.log('counter', counter.auth.user)} ey</Text>
+    <View style={styles.itemContainer}>
+      {loading ? (
+        <ActivityIndicator size="small" color="#0000ff" />
+      ) : (
+        <Card data={watchingNowState.watchingNow}></Card>
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+
+    color: 'white',
+  },
+});
+export default Home;

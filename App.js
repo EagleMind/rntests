@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -14,7 +14,6 @@ import Login from './src/components/Auth/login/index';
 import Profile from './src/components/Profile/index';
 import Home from './src/Pages/Home/';
 import {logout} from './src/redux/actions/tmdb/auth';
-import {useSelector} from 'react-redux';
 export function App() {
   const Stack = createNativeStackNavigator();
 

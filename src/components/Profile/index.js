@@ -18,7 +18,7 @@ import {
 import store from '../../../store';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {profileDetails} from '../../redux/actions/profile';
+import {profileDetails} from '../../redux/actions/tmdb/profile';
 import Card from '../card';
 export function Profile() {
   const profile = useSelector(state => state.profile).profile;
