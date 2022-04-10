@@ -18,10 +18,25 @@ import {
   ActivityIndicator,
   View,
   Image,
+  Alert,
+  Modal,
+  Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 export function Card(data) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [movieDetails, setMovieDetails] = useState({});
+  const [isloading, setisLoading] = useState(true);
+  async function showDetails(id) {
+    // We don't need to call the /movies/{movie_id} API because the
+    // current data has the movie detail already so to optimise
+    // network bandwidth we simply filter the data with the movie Id
+    const movie = await data.data.find(item => item.id == id);
+    setisLoading(false);
+    setMovieDetails(movie);
+    setModalVisible(true);
+  }
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -62,13 +77,59 @@ export function Card(data) {
                     </Text>
                   </View>
                   <View style={styles.detailsButton}></View>
-                  <Button title="Show Details"></Button>
+                  <Button
+                    title="Show Details"
+                    onPress={() => showDetails(movie.id)}></Button>
                 </View>
               </View>
             </View>
           );
         })}
       </SafeAreaView>
+      {/* Modal to see Movie details */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            {isloading ? (
+              <ActivityIndicator size="small" color="#0000ff" />
+            ) : (
+              <View>
+                <View>
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}`,
+                    }}></Image>
+                </View>
+                <View>
+                  <Text>Language : {movieDetails.original_language}</Text>
+                  <Text>{movieDetails.original_title}</Text>
+                  <Text>{movieDetails.overview}</Text>
+                  <Text>Popularity : {movieDetails.popularity}</Text>
+                  <Text>Release date : {movieDetails.release_date}</Text>
+                  <Text>{movieDetails.video}</Text>
+                  <Text>Vote average : {movieDetails.vote_average}</Text>
+                  <Text>Vote count : {movieDetails.vote_count}</Text>
+                </View>
+              </View>
+            )}
+
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Close </Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      {/* Modal to see Movie details */}
     </ScrollView>
   );
 }
@@ -129,6 +190,47 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 export default Card;
