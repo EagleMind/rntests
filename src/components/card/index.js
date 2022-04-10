@@ -90,7 +90,6 @@ export function Card(data) {
                       {movie.vote_count}
                     </Text>
                   </View>
-                  <View style={{width: 100}}></View>
                   <Button
                     style={{width: 100}}
                     title="Show Details"
@@ -131,34 +130,40 @@ export function Card(data) {
                 <ActivityIndicator size="small" color="#0000ff" />
               ) : (
                 <View>
-                  <View>
+                  <View style={modalStyling.movHeader}>
                     <Image
-                      style={styles.image}
+                      style={modalStyling.image}
                       source={{
                         uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}`,
                       }}></Image>
+                    <View>
+                      <View style={modalStyling.specs}>
+                        <Text style={modalStyling.title}>
+                          {movieDetails.original_title}
+                        </Text>
+                        <Text>Popularity : {movieDetails.popularity}</Text>
+                        <Text>Vote count : {movieDetails.vote_count}</Text>
+                        <Text>Vote average : {movieDetails.vote_average}</Text>
+                        <Text>Date : {movieDetails.release_date}</Text>
+                      </View>
+                    </View>
                   </View>
-                  <View>
-                    <Text>Language : {movieDetails.original_language}</Text>
-                    <Text>{movieDetails.original_title}</Text>
-                    <Text>{movieDetails.overview}</Text>
-                    <Text>Popularity : {movieDetails.popularity}</Text>
-                    <Text>Release date : {movieDetails.release_date}</Text>
-                    <Text>{movieDetails.video}</Text>
-                    <Text>Vote average : {movieDetails.vote_average}</Text>
-                    <Text>Vote count : {movieDetails.vote_count}</Text>
+                  <Text style={modalStyling.overviewTitle}>Overview :</Text>
+                  <Text>{movieDetails.overview}</Text>
+                  <View style={modalStyling.buttonsVertical}>
                     <Button
+                      style={modalStyling.buttonsVertical}
                       title="Watch Trailer"
-                      onPress={() => watchTeaser(id)}></Button>
+                      onPress={() => watchTeaser(movieDetails.id)}></Button>
+                  </View>
+                  <View style={modalStyling.buttonsVertical}>
+                    <Button
+                      style={modalStyling.buttonsVertical}
+                      title="Close"
+                      onPress={() => setModalVisible(!modalVisible)}></Button>
                   </View>
                 </View>
               )}
-
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Close </Text>
-              </Pressable>
             </View>
           )}
         </View>
@@ -167,7 +172,36 @@ export function Card(data) {
     </ScrollView>
   );
 }
+const modalStyling = StyleSheet.create({
+  specs: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginLeft: 20,
+  },
 
+  overviewTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  movHeader: {
+    flexDirection: 'row',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  buttonsVertical: {
+    marginVertical: 10,
+  },
+  releaseDate: {
+    color: '#C4C4C4',
+  },
+  image: {
+    width: 150,
+    height: 200,
+  },
+});
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F7F7F7',
@@ -187,6 +221,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 350,
   },
+
   details: {
     flex: 1,
     flexDirection: 'column',
@@ -198,9 +233,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-  releaseDate: {
-    color: '#C4C4C4',
-  },
+
   imageBox: {
     flex: 0.2,
     width: '100%',
@@ -209,16 +242,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 200,
   },
+
   detailsButton: {
     width: 100,
   },
 
-  overview: {
-    fontFamily: 'Cairo-Bold',
-    fontWeight: '600',
-    fontStyle: 'normal',
-    fontSize: 14,
-  },
   vote: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -234,14 +262,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
+    padding: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -256,6 +282,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#2196F3',
+    marginVertical: 10,
   },
   textStyle: {
     color: 'white',

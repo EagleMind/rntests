@@ -34,7 +34,6 @@ export function Home() {
         ) : (
           <View>
             <Text style={styles.caregoryTitle}>Playing Now</Text>
-
             <Card data={watchingNowState.watchingNow}></Card>
             <Text style={styles.caregoryTitle}>Upcoming Movies</Text>
             <Card data={upComing.upcoming}></Card>
