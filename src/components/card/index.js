@@ -53,7 +53,7 @@ export function Card(data) {
       });
   }
   return (
-    <ScrollView>
+    <ScrollView horizontal={true}>
       <SafeAreaView style={styles.container}>
         {data.data.map(movie => {
           return (
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: '400',
   },
+
   imageBox: {
     flex: 0.2,
     width: '100%',

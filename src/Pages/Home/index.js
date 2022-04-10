@@ -26,12 +26,16 @@ export function Home() {
     });
   }, []);
   return (
-    <ScrollView horizontal={true}>
+    <ScrollView>
       <View style={styles.itemContainer}>
         {loading ? (
           <ActivityIndicator size="small" color="#0000ff" />
         ) : (
-          <Card data={watchingNowState.watchingNow}></Card>
+          <View>
+            <Text style={styles.caregoryTitle}>Playing Now</Text>
+
+            <Card data={watchingNowState.watchingNow}></Card>
+          </View>
         )}
       </View>
     </ScrollView>
@@ -39,9 +43,14 @@ export function Home() {
 }
 
 const styles = StyleSheet.create({
+  caregoryTitle: {
+    margin: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   itemContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F7F7',
     flexDirection: 'row',
     color: 'white',
   },
