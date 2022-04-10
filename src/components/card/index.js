@@ -23,19 +23,32 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
-
+import axios from 'axios';
+import {WebView} from 'react-native-webview';
 export function Card(data) {
   const [modalVisible, setModalVisible] = useState(false);
   const [movieDetails, setMovieDetails] = useState({});
   const [isloading, setisLoading] = useState(true);
+  const [teaser, setTeaser] = useState({});
+  const [teaserActive, setTeaserActive] = useState({});
   async function showDetails(id) {
     // We don't need to call the /movies/{movie_id} API because the
     // current data has the movie detail already so to optimise
     // network bandwidth we simply filter the data with the movie Id
     const movie = await data.data.find(item => item.id == id);
-    setisLoading(false);
     setMovieDetails(movie);
     setModalVisible(true);
+
+    // Yet we need to make the api call of /movies/{movie_id}
+    // to get the Teaser's data
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=919d4d874d091ca3dd7efc2a528f309e&session_id=d3d72247eb3d2b0614a97820575259cda1f243cf`,
+      )
+      .then(teaser => {
+        setTeaser(teaser.data.results);
+      });
+    setisLoading(false);
   }
   return (
     <ScrollView>
@@ -96,37 +109,56 @@ export function Card(data) {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {isloading ? (
-              <ActivityIndicator size="small" color="#0000ff" />
-            ) : (
-              <View>
+          {teaserActive ? (
+            <View style={{width: 300, height: 300}}>
+              {/* Getting only the first video of teasers because 
+              there was multiple Official trailers Which doesn't make sense
+              otherwise i would-ve make another screen with their list */}
+              <WebView
+                source={{
+                  uri: `https://www.youtube.com/embed/${teaser[0].key}?autoplay=1`,
+                }}
+              />
+              <Button
+                title="Close"
+                onPress={() => setTeaserActive(false)}></Button>
+            </View>
+          ) : (
+            <View style={styles.modalView}>
+              {isloading & teaser ? (
+                <ActivityIndicator size="small" color="#0000ff" />
+              ) : (
                 <View>
-                  <Image
-                    style={styles.image}
-                    source={{
-                      uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}`,
-                    }}></Image>
+                  <View>
+                    <Image
+                      style={styles.image}
+                      source={{
+                        uri: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.backdrop_path}`,
+                      }}></Image>
+                  </View>
+                  <View>
+                    <Text>Language : {movieDetails.original_language}</Text>
+                    <Text>{movieDetails.original_title}</Text>
+                    <Text>{movieDetails.overview}</Text>
+                    <Text>Popularity : {movieDetails.popularity}</Text>
+                    <Text>Release date : {movieDetails.release_date}</Text>
+                    <Text>{movieDetails.video}</Text>
+                    <Text>Vote average : {movieDetails.vote_average}</Text>
+                    <Text>Vote count : {movieDetails.vote_count}</Text>
+                    <Button
+                      title="Watch Trailer"
+                      onPress={() => setTeaserActive(true)}></Button>
+                  </View>
                 </View>
-                <View>
-                  <Text>Language : {movieDetails.original_language}</Text>
-                  <Text>{movieDetails.original_title}</Text>
-                  <Text>{movieDetails.overview}</Text>
-                  <Text>Popularity : {movieDetails.popularity}</Text>
-                  <Text>Release date : {movieDetails.release_date}</Text>
-                  <Text>{movieDetails.video}</Text>
-                  <Text>Vote average : {movieDetails.vote_average}</Text>
-                  <Text>Vote count : {movieDetails.vote_count}</Text>
-                </View>
-              </View>
-            )}
+              )}
 
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Close </Text>
-            </Pressable>
-          </View>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Close </Text>
+              </Pressable>
+            </View>
+          )}
         </View>
       </Modal>
       {/* Modal to see Movie details */}
