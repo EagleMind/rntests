@@ -19,8 +19,8 @@ import React, {useEffect, useState} from 'react';
 import {register} from '../../../redux/actions/tmdb/auth';
 import {DrawerActions} from '@react-navigation/native';
 export function Register({navigation}) {
-  const [email, setEmail] = useState('test');
-  const [password, setPassword] = useState('test');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   useEffect(() => {
     navigation.dispatch(DrawerActions.closeDrawer());
   }, []);
