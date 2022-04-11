@@ -34,7 +34,7 @@ export function Register({navigation}) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../../../assets/bg.jpg')}
+        source={require('../../Auth/bg.jpg')}
         style={styles.background}>
         <View style={styles.loginContainer}>
           <View>
