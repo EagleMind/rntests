@@ -9,7 +9,8 @@ import {
 } from '../../types/auth';
 export const register = async (email, password) => {
   const userEmail = await AsyncStorage.getItem('email');
-  if (!userEmail === email || !userEmail) {
+  const userPassword = await AsyncStorage.getItem('password');
+  if (userEmail === email || !email) {
     store.dispatch({type: REGISTER_FAIL, isLoggedIn: false});
     return false;
   } else {
