@@ -21,7 +21,7 @@ import {
 import React, {useState} from 'react';
 import axios from 'axios';
 import {WebView} from 'react-native-webview';
-import {config} from '../../config';
+import config from '../../config';
 export function Card(data) {
   const [modalVisible, setModalVisible] = useState(false);
   const [movieDetails, setMovieDetails] = useState({});
@@ -40,6 +40,9 @@ export function Card(data) {
   async function watchTeaser(id) {
     // Yet we need to make the api call of /movies/{movie_id}
     // to get the Teaser's data
+    console.log(
+      `${config.TMDB_URL}/movie/${id}/videos?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
+    );
     await axios
       .get(
         `${config.TMDB_URL}/movie/${id}/videos?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
