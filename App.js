@@ -6,7 +6,6 @@
  * @flow strict-local
  */
 import React from 'react';
-import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   createDrawerNavigator,
@@ -18,7 +17,7 @@ import {
 import Register from './src/components/Auth/register/index';
 import Login from './src/components/Auth/login/index';
 import Profile from './src/components/Profile/index';
-import Home from './src/Pages/Home/';
+import Home from './src/screens/Home/';
 import {logout} from './src/redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 import {LogBox} from 'react-native';
@@ -40,12 +39,17 @@ export function App() {
   return (
     <NavigationContainer>
       {!isLoggedIn ? (
-        <Drawer.Navigator initialRouteName="Register">
+        <Drawer.Navigator
+          initialRouteName="Register"
+          defaultStatus={false}
+          useLegacyImplementation={true}>
           <Drawer.Screen name="Register" component={Register} />
           <Drawer.Screen name="Login" component={Login} />
         </Drawer.Navigator>
       ) : (
         <Drawer.Navigator
+          useLegacyImplementation={true}
+          defaultStatus={false}
           drawerContent={props => <CustomDrawerContent {...props} />}
           initialRouteName="Home">
           <Drawer.Screen name="Home" component={Home} />

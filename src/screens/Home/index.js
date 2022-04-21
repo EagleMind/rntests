@@ -15,6 +15,7 @@ import {
 import Card from '../../components/card';
 import {useSelector} from 'react-redux';
 import {watchingNow} from '../../redux/actions/tmdb/features';
+import {DrawerActions} from '@react-navigation/native';
 
 export function Home() {
   const watchingNowState = useSelector(state => state).watchingNowFeature;
@@ -25,6 +26,7 @@ export function Home() {
     watchingNow().then(() => {
       setLoading(false);
     });
+    DrawerActions.closeDrawer();
   }, []);
   return (
     <ScrollView>

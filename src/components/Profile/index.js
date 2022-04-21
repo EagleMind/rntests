@@ -26,8 +26,8 @@ export function Profile({navigation}) {
   useEffect(() => {
     profileDetails().then(() => {
       setLoading(false);
-      navigation.dispatch(DrawerActions.closeDrawer());
     });
+    DrawerActions.closeDrawer();
   }, []);
 
   return (
