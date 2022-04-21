@@ -19,8 +19,8 @@ import React, {useEffect, useState} from 'react';
 import {register} from '../../../redux/actions/tmdb/auth';
 import {DrawerActions} from '@react-navigation/native';
 export function Register({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('aaaa');
+  const [password, setPassword] = useState('aaaa');
   useEffect(() => {
     navigation.dispatch(DrawerActions.closeDrawer());
   }, []);
@@ -43,7 +43,7 @@ export function Register({navigation}) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Enter Email"
+              placeholder="aaaa"
               placeholderTextColor="white"
               onChangeText={email => setEmail(email)}
             />
@@ -52,7 +52,7 @@ export function Register({navigation}) {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Enter password"
+              placeholder="aaaa"
               placeholderTextColor="white"
               secureTextEntry={true}
               onChangeText={password => setPassword(password)}
