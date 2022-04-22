@@ -7,7 +7,6 @@
  */
 
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,7 +14,6 @@ import {
   ActivityIndicator,
   View,
   Image,
-  Alert,
   Modal,
   ImageBackground,
 } from 'react-native';
