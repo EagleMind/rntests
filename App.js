@@ -13,7 +13,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-
+import {Button} from 'react-native';
 import Register from './src/components/Auth/register/index';
 import Login from './src/components/Auth/login/index';
 import Profile from './src/components/Profile/index';
@@ -22,7 +22,15 @@ import {logout} from './src/redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 import {LogBox} from 'react-native';
 import Movie from './src/screens/Movie';
+import {createNavigationContainerRef} from '@react-navigation/native';
 
+export const navigationRef = createNavigationContainerRef();
+
+export function navigate(name, params) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
+}
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -38,8 +46,9 @@ export function App() {
   ]);
   const isLoggedIn = useSelector(state => state)?.auth?.user?.isLoggedIn;
   const Drawer = createDrawerNavigator();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       {!isLoggedIn ? (
         <Drawer.Navigator
           initialRouteName="Register"
@@ -58,6 +67,9 @@ export function App() {
             component={Movie}
             options={{
               drawerItemStyle: {display: 'none'},
+              headerRight: () => (
+                <Button onPress={() => navigate('Home')} title="Back" />
+              ),
             }}
           />
           <Drawer.Screen
