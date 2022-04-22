@@ -21,6 +21,8 @@ import Home from './src/screens/Home/';
 import {logout} from './src/redux/actions/tmdb/auth';
 import {useSelector} from 'react-redux';
 import {LogBox} from 'react-native';
+import Movie from './src/screens/Movie';
+
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -41,7 +43,6 @@ export function App() {
       {!isLoggedIn ? (
         <Drawer.Navigator
           initialRouteName="Register"
-          defaultStatus={false}
           useLegacyImplementation={true}>
           <Drawer.Screen name="Register" component={Register} />
           <Drawer.Screen name="Login" component={Login} />
@@ -49,10 +50,16 @@ export function App() {
       ) : (
         <Drawer.Navigator
           useLegacyImplementation={true}
-          defaultStatus={false}
           drawerContent={props => <CustomDrawerContent {...props} />}
           initialRouteName="Home">
           <Drawer.Screen name="Home" component={Home} />
+          <Drawer.Screen
+            name="Movie"
+            component={Movie}
+            options={{
+              drawerItemStyle: {display: 'none'},
+            }}
+          />
           <Drawer.Screen
             name="Profile"
             component={Profile}
