@@ -43,7 +43,7 @@ export function Movie({route}) {
       });
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <ImageBackground
         blurRadius={90}
         source={{
@@ -116,7 +116,7 @@ export function Movie({route}) {
         </View>
       </Modal>
       {/* Modal to see Movie details */}
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 const modalStyling = StyleSheet.create({
