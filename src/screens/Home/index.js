@@ -1,39 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  TextInput,
   Text,
   Button,
-  useColorScheme,
-  TouchableOpacity,
   ActivityIndicator,
   View,
   Image,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {watchingNow} from '../../redux/actions/tmdb/features';
+import {watchingNow} from '../../redux/actions/tmdb/watchingnow';
 import {upcomingNow} from '../../redux/actions/tmdb/upcoming';
 export function Home({navigation}) {
-  console.log(useSelector(state => state.watchingNow).watchingNow);
-  const watching = useSelector(state => state.watchingNow).watchingNow;
-  const upComing = useSelector(state => state.upComing).upComing;
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(upcomingNow());
     dispatch(watchingNow());
-    if (watching && upComing) {
-      setLoading(false);
-    }
   }, []);
+  const watching = useSelector(state => state.watchingNow).watchingNow;
+  const upComing = useSelector(state => state.upComing).upComing;
+  console.log(useSelector(state => state));
+
   return (
     <ScrollView>
       <Text style={styles.caregoryTitle}>Playing Now</Text>
-      {loading ? (
+      {!watching ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView horizontal={true}>
@@ -88,13 +80,13 @@ export function Home({navigation}) {
         </ScrollView>
       )}
       <Text style={styles.caregoryTitle}>Upcoming</Text>
-      {loading ? (
+      {!upComing ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView horizontal={true}>
           {upComing.map(movie => {
             return (
-              <View style={styles.itemContainer}>
+              <View style={styles.itemContainer} key={movie.id}>
                 <View style={{flexDirection: 'row'}}>
                   <View style={styles.imageBox}>
                     <Image

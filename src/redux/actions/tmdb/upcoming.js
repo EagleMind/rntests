@@ -2,8 +2,8 @@ import axios from 'axios';
 import {UP_COMING} from '../../types/tmdb/upcoming';
 import config from '../../../config';
 export function upcomingNow() {
-  return dispatch => {
-    axios
+  return async dispatch => {
+    await axios
       .get(
         `${config.TMDB_URL}/movie/upcoming?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
       )
