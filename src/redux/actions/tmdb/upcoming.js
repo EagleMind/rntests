@@ -1,15 +1,15 @@
 import axios from 'axios';
-import {WATCHING_NOW} from '../../types/tmdb/features';
+import {UP_COMING} from '../../types/tmdb/upcoming';
 import config from '../../../config';
-export function watchingNow() {
+export function upcomingNow() {
   return dispatch => {
     axios
       .get(
-        `${config.TMDB_URL}/movie/now_playing?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
+        `${config.TMDB_URL}/movie/upcoming?api_key=${config.TMDB_API_KEY}&session_id=${config.SESSION_ID}`,
       )
       .then(res => {
         dispatch({
-          type: WATCHING_NOW,
+          type: UP_COMING,
           payload: res.data.results,
         });
       })

@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import {authentication} from './auth';
 import {profileDetails} from './tmdb/profile';
-import {watchingNowFeature} from './tmdb/features';
-import {upComing} from './tmdb/features';
+import {watchingNowState} from './tmdb/features';
+import {upComingNext} from './tmdb/upcoming';
 const rootReducer = combineReducers({
   auth: authentication,
   profile: profileDetails,
-  watchingNowFeature: watchingNowFeature,
-  upComing: upComing,
+  watchingNow: watchingNowState,
+  upComing: upComingNext,
 });
 export default rootReducer;

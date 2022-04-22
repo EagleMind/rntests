@@ -13,19 +13,20 @@ import {
   View,
   Image,
 } from 'react-native';
-import Card from '../../components/card';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {watchingNow} from '../../redux/actions/tmdb/features';
-
+import {upcomingNow} from '../../redux/actions/tmdb/upcoming';
 export function Home({navigation}) {
-  const watchingNowState = useSelector(state => state).watchingNowFeature;
-  const upComing = useSelector(state => state).upComing;
+  console.log(useSelector(state => state.watchingNow).watchingNow);
+  const watching = useSelector(state => state.watchingNow).watchingNow;
+  const upComing = useSelector(state => state.upComing).upComing;
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    watchingNow().then(() => {
-      setLoading(false);
-    });
+    dispatch(upcomingNow());
+    dispatch(watchingNow());
+    setLoading(false);
   }, []);
   return (
     <ScrollView>
@@ -34,7 +35,7 @@ export function Home({navigation}) {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView horizontal={true}>
-          {watchingNowState.watchingNow.map(movie => {
+          {watching.map(movie => {
             return (
               <View style={styles.itemContainer}>
                 <View style={{flexDirection: 'row'}}>
@@ -89,7 +90,7 @@ export function Home({navigation}) {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView horizontal={true}>
-          {upComing.upcoming.map(movie => {
+          {upComing.map(movie => {
             return (
               <View style={styles.itemContainer}>
                 <View style={{flexDirection: 'row'}}>
