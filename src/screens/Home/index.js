@@ -26,7 +26,9 @@ export function Home({navigation}) {
   useEffect(() => {
     dispatch(upcomingNow());
     dispatch(watchingNow());
-    setLoading(false);
+    if (watching && upComing) {
+      setLoading(false);
+    }
   }, []);
   return (
     <ScrollView>
@@ -37,7 +39,7 @@ export function Home({navigation}) {
         <ScrollView horizontal={true}>
           {watching.map(movie => {
             return (
-              <View style={styles.itemContainer}>
+              <View style={styles.itemContainer} key={movie.id}>
                 <View style={{flexDirection: 'row'}}>
                   <View style={styles.imageBox}>
                     <Image
