@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {authentication} from './auth';
 import {profileDetails} from './tmdb/profile';
-import {watchingNowState} from './tmdb/watchingnow';
+import {watchingNowState} from './tmdb/features';
 import {upComingNext} from './tmdb/upcoming';
 const rootReducer = combineReducers({
   auth: authentication,
