@@ -175,12 +175,14 @@ const styles = StyleSheet.create({
     elevation: 1,
     backgroundColor: '#FFFFFF',
     margin: 10,
+    width: 350,
   },
 
   details: {
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 5,
+    marginLeft: 60,
   },
   title: {
     textAlign: 'left',
