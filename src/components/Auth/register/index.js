@@ -21,9 +21,7 @@ import {DrawerActions} from '@react-navigation/native';
 export function Register({navigation}) {
   const [email, setEmail] = useState('aaaa');
   const [password, setPassword] = useState('aaaa');
-  useEffect(() => {
-    navigation.dispatch(DrawerActions.closeDrawer());
-  }, []);
+  useEffect(() => {}, []);
 
   async function onSignUp(email, password) {
     register(email, password).then(res => {
